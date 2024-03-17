@@ -21,6 +21,8 @@ namespace oti2018_national.Forms
         public UserModel user;
 
         private List<string> correctimages = new List<string>();
+        private List<string> actualimages = new List<string>();
+
         private void Captcha_Load(object sender, EventArgs e)
         {
             List<string> images = new List<string>();
@@ -37,7 +39,7 @@ namespace oti2018_national.Forms
                 while(sr.Peek() > 0)
                 {
                     string line = sr.ReadLine().TrimEnd();
-                    correctimages.Add(line);
+                    correctimages.Add("Captcha\\" + line);
                 }
             }
 
@@ -45,55 +47,60 @@ namespace oti2018_national.Forms
             Random rand = new Random();
             int x = rand.Next(0, 20);
             pictureBox1.Image = Image.FromFile(images[x]);
-            
+            actualimages.Add(images[x]);
             x = rand.Next(0, 20);
             pictureBox2.Image = Image.FromFile(images[x]);
-            
+            actualimages.Add(images[x]);
             x = rand.Next(0, 20);
             pictureBox3.Image = Image.FromFile(images[x]);
-            
+            actualimages.Add(images[x]);
             x = rand.Next(0, 20);
             pictureBox4.Image = Image.FromFile(images[x]);
-            
+            actualimages.Add(images[x]);
             x = rand.Next(0, 20);
             pictureBox5.Image = Image.FromFile(images[x]);
-            
+            actualimages.Add(images[x]);
             x = rand.Next(0, 20);
             pictureBox6.Image = Image.FromFile(images[x]);
-            
-            
+            actualimages.Add(images[x]);
+
         }
 
         private List<string> selectedimages = new List<string>();
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            string test = pictureBox1.ImageLocation;
-            selectedimages.Add(pictureBox1.ImageLocation);
+            selectedimages.Add(actualimages[0]);
+            pictureBox1.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            selectedimages.Add(pictureBox2.ImageLocation.ToString());
+            selectedimages.Add(actualimages[1]);
+            pictureBox2.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void pictureBox3_Click(object sender, EventArgs e)
         {
-            selectedimages.Add(pictureBox3.ImageLocation.ToString());
+            selectedimages.Add(actualimages[2]);
+            pictureBox3.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void pictureBox4_Click(object sender, EventArgs e)
         {
-            selectedimages.Add(pictureBox2.ImageLocation.ToString());
+            selectedimages.Add(actualimages[3]);
+            pictureBox4.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
-            selectedimages.Add(pictureBox5.ImageLocation.ToString());
+            selectedimages.Add(actualimages[4]);
+            pictureBox5.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void pictureBox6_Click(object sender, EventArgs e)
         {
-            selectedimages.Add(pictureBox6.ImageLocation.ToString());
+            selectedimages.Add(actualimages[5]);
+            pictureBox6.BorderStyle = BorderStyle.FixedSingle;
         }
 
         private void selectBtn_Click(object sender, EventArgs e)
@@ -110,15 +117,21 @@ namespace oti2018_national.Forms
                 }
             }
 
-            if(k == 6)
+            if(k == selectedimages.Count)
             {
                 MessageBox.Show("ok");
+            }
+            else
+            {
+                MessageBox.Show("esti robot");
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
+            Autentificare auth = new Autentificare();
+            auth.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)

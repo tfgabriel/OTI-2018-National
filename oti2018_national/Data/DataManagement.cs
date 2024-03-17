@@ -98,7 +98,7 @@ namespace oti2018_national
             using(SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                string cmdText = "Update parola = @newparola in Utilizatori where email = @email";
+                string cmdText = "Update Utilizatori set parola = @newparola where email = @email";
                 using(SqlCommand cmd = new SqlCommand(cmdText, con))
                 {
                     cmd.Parameters.AddWithValue ("email", email);
